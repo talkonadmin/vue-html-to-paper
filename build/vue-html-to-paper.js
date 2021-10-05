@@ -1,8 +1,9 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-  typeof define === 'function' && define.amd ? define(factory) :
-  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.VueHtmlToPaper = factory());
-}(this, (function () { 'use strict';
+    typeof define === 'function' && define.amd ? define(factory) :
+      (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.VueHtmlToPaper = factory());
+}(this, (function () {
+  'use strict';
 
   const addStyles = (win, styles) => {
     styles.forEach((style) => {
@@ -15,10 +16,11 @@
   };
 
   const VueHtmlToPaper = {
-    install (Vue, options = {}) {
-      Vue.prototype.$htmlToPaper = (el, localOptions = {}, cb = () => true) => {
-        let defaultName = '_blank', 
-          defaultSpecs = ['fullscreen=yes','titlebar=yes', 'scrollbars=yes'],
+    install (_i, options = {}) {
+      let globals = _i.prototype || _i.config.globalProperties;
+      globals.$htmlToPaper = (el, localOptions, cb = () => true) => {
+        let defaultName = '_blank',
+          defaultSpecs = ['fullscreen=yes', 'titlebar=yes', 'scrollbars=yes'],
           defaultStyles = [],
           defaultTimeout = 1000,
           defaultAutoClose = true,
@@ -31,7 +33,7 @@
           autoClose = defaultAutoClose,
           windowTitle = defaultWindowTitle,
         } = options;
-        
+
         if (localOptions.name) name = localOptions.name;
         if (localOptions.specs) specs = localOptions.specs;
         if (localOptions.styles) styles = localOptions.styles;

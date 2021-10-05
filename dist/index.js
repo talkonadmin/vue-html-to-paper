@@ -13,10 +13,11 @@ const addStyles = (win, styles) => {
 };
 
 const VueHtmlToPaper = {
-  install (Vue, options = {}) {
-    Vue.prototype.$htmlToPaper = (el, localOptions = {}, cb = () => true) => {
-      let defaultName = '_blank', 
-        defaultSpecs = ['fullscreen=yes','titlebar=yes', 'scrollbars=yes'],
+  install (_i, options = {}) {
+    let globals = _i.prototype || _i.config.globalProperties;
+    globals.$htmlToPaper = (el, localOptions, cb = () => true) => {
+      let defaultName = '_blank',
+        defaultSpecs = ['fullscreen=yes', 'titlebar=yes', 'scrollbars=yes'],
         defaultStyles = [],
         defaultTimeout = 1000,
         defaultAutoClose = true,
@@ -29,7 +30,7 @@ const VueHtmlToPaper = {
         autoClose = defaultAutoClose,
         windowTitle = defaultWindowTitle,
       } = options;
-      
+
       if (localOptions.name) name = localOptions.name;
       if (localOptions.specs) specs = localOptions.specs;
       if (localOptions.styles) styles = localOptions.styles;
